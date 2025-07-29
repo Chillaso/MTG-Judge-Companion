@@ -1,0 +1,204 @@
+{
+  "sections": [
+    {
+      "id": "1",
+      "title": "Game Concepts",
+      "subsections": [
+        { "id": "100", "title": "General" },
+        { "id": "101", "title": "The Magic Golden Rules" },
+        { "id": "102", "title": "Players" },
+        { "id": "103", "title": "Starting the Game" },
+        { "id": "104", "title": "Ending the Game" },
+        { "id": "105", "title": "Colors" },
+        { "id": "106", "title": "Mana" },
+        { "id": "107", "title": "Numbers and Symbols" },
+        { "id": "108", "title": "Cards" },
+        { "id": "109", "title": "Objects" },
+        { "id": "110", "title": "Permanents" },
+        { "id": "111", "title": "Tokens" },
+        { "id": "112", "title": "Spells" },
+        { "id": "113", "title": "Abilities" },
+        { "id": "114", "title": "Emblems" },
+        { "id": "115", "title": "Targets" },
+        { "id": "116", "title": "Special Actions" },
+        { "id": "117", "title": "Timing and Priority" },
+        { "id": "118", "title": "Costs" },
+        { "id": "119", "title": "Life" },
+        { "id": "120", "title": "Damage" },
+        { "id": "121", "title": "Drawing a Card" },
+        { "id": "122", "title": "Counters" },
+        { "id": "123", "title": "Stickers" }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Parts of a Card",
+      "subsections": [
+        { "id": "200", "title": "General" },
+        { "id": "201", "title": "Name" },
+        { "id": "202", "title": "Mana Cost and Color" },
+        { "id": "203", "title": "Illustration" },
+        { "id": "204", "title": "Color Indicator" },
+        { "id": "205", "title": "Type Line" },
+        { "id": "206", "title": "Expansion Symbol" },
+        { "id": "207", "title": "Text Box" },
+        { "id": "208", "title": "Power/Toughness" },
+        { "id": "209", "title": "Loyalty" },
+        { "id": "210", "title": "Defense" },
+        { "id": "211", "title": "Hand Modifier" },
+        { "id": "212", "title": "Life Modifier" },
+        { "id": "213", "title": "Information Below the Text Box" }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Card Types",
+      "subsections": [
+        { "id": "300", "title": "General" },
+        { "id": "301", "title": "Artifacts" },
+        { "id": "302", "title": "Creatures" },
+        { "id": "303", "title": "Enchantments" },
+        { "id": "304", "title": "Instants" },
+        { "id": "305", "title": "Lands" },
+        { "id": "306", "title": "Planeswalkers" },
+        { "id": "307", "title": "Sorceries" },
+        { "id": "308", "title": "Kindreds" },
+        { "id": "309", "title": "Dungeons" },
+        { "id": "310", "title": "Battles" },
+        { "id": "311", "title": "Planes" },
+        { "id": "312", "title": "Phenomena" },
+        { "id": "313", "title": "Vanguards" },
+        { "id": "314", "title": "Schemes" },
+        { "id": "315", "title": "Conspiracies" }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Zones",
+      "subsections": [
+        { "id": "400", "title": "General" },
+        { "id": "401", "title": "Library" },
+        { "id": "402", "title": "Hand" },
+        { "id": "403", "title": "Battlefield" },
+        { "id": "404", "title": "Graveyard" },
+        { "id": "405", "title": "Stack" },
+        { "id": "406", "title": "Exile" },
+        { "id": "407", "title": "Ante" },
+        { "id": "408", "title": "Command" }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Turn Structure",
+      "subsections": [
+        { "id": "500", "title": "General" },
+        { "id": "501", "title": "Beginning Phase" },
+        { "id": "502", "title": "Untap Step" },
+        { "id": "503", "title": "Upkeep Step" },
+        { "id": "504", "title": "Draw Step" },
+        { "id": "505", "title": "Main Phase" },
+        { "id": "506", "title": "Combat Phase" },
+        { "id": "507", "title": "Beginning of Combat Step" },
+        { "id": "508", "title": "Declare Attackers Step" },
+        { "id": "509", "title": "Declare Blockers Step" },
+        { "id": "510", "title": "Combat Damage Step" },
+        { "id": "511", "title": "End of Combat Step" },
+        { "id": "512", "title": "Ending Phase" },
+        { "id": "513", "title": "End Step" },
+        { "id": "514", "title": "Cleanup Step" }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Spells, Abilities, and Effects",
+      "subsections": [
+        { "id": "600", "title": "General" },
+        { "id": "601", "title": "Casting Spells" },
+        { "id": "602", "title": "Activating Activated Abilities" },
+        { "id": "603", "title": "Handling Triggered Abilities" },
+        { "id": "604", "title": "Handling Static Abilities" },
+        { "id": "605", "title": "Mana Abilities" },
+        { "id": "606", "title": "Loyalty Abilities" },
+        { "id": "607", "title": "Linked Abilities" },
+        { "id": "608", "title": "Resolving Spells and Abilities" },
+        { "id": "609", "title": "Effects" },
+        { "id": "610", "title": "One-Shot Effects" },
+        { "id": "611", "title": "Continuous Effects" },
+        { "id": "612", "title": "Text-Changing Effects" },
+        { "id": "613", "title": "Interaction of Continuous Effects" },
+        { "id": "614", "title": "Replacement Effects" },
+        { "id": "615", "title": "Prevention Effects" },
+        { "id": "616", "title": "Interaction of Replacement and/or Prevention Effects" }
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Additional Rules",
+      "subsections": [
+        { "id": "700", "title": "General" },
+        { "id": "701", "title": "Keyword Actions" },
+        { "id": "702", "title": "Keyword Abilities" },
+        { "id": "703", "title": "Turn-Based Actions" },
+        { "id": "704", "title": "State-Based Actions" },
+        { "id": "705", "title": "Flipping a Coin" },
+        { "id": "706", "title": "Rolling a Die" },
+        { "id": "707", "title": "Copying Objects" },
+        { "id": "708", "title": "Face-Down Spells and Permanents" },
+        { "id": "709", "title": "Split Cards" },
+        { "id": "710", "title": "Flip Cards" },
+        { "id": "711", "title": "Leveler Cards" },
+        { "id": "712", "title": "Double-Faced Cards" },
+        { "id": "713", "title": "Substitute Cards" },
+        { "id": "714", "title": "Saga Cards" },
+        { "id": "715", "title": "Adventurer Cards" },
+        { "id": "716", "title": "Class Cards" },
+        { "id": "717", "title": "Attraction Cards" },
+        { "id": "718", "title": "Prototype Cards" },
+        { "id": "719", "title": "Case Cards" },
+        { "id": "720", "title": "Omen Cards" },
+        { "id": "721", "title": "Station Cards" },
+        { "id": "722", "title": "Controlling Another Player" },
+        { "id": "723", "title": "Ending Turns and Phases" },
+        { "id": "724", "title": "The Monarch" },
+        { "id": "725", "title": "The Initiative" },
+        { "id": "726", "title": "Restarting the Game" },
+        { "id": "727", "title": "Rad Counters" },
+        { "id": "728", "title": "Subgames" },
+        { "id": "729", "title": "Merging with Permanents" },
+        { "id": "730", "title": "Day and Night" },
+        { "id": "731", "title": "Taking Shortcuts" },
+        { "id": "732", "title": "Handling Illegal Actions" }
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Multiplayer Rules",
+      "subsections": [
+        { "id": "800", "title": "General" },
+        { "id": "801", "title": "Limited Range of Influence Option" },
+        { "id": "802", "title": "Attack Multiple Players Option" },
+        { "id": "803", "title": "Attack Left and Attack Right Options" },
+        { "id": "804", "title": "Deploy Creatures Option" },
+        { "id": "805", "title": "Shared Team Turns Option" },
+        { "id": "806", "title": "Free-for-All Variant" },
+        { "id": "807", "title": "Grand Melee Variant" },
+        { "id": "808", "title": "Team vs. Team Variant" },
+        { "id": "809", "title": "Emperor Variant" },
+        { "id": "810", "title": "Two-Headed Giant Variant" },
+        { "id": "811", "title": "Alternating Teams Variant" }
+      ]
+    },
+    {
+      "id": "9",
+      "title": "Casual Variants",
+      "subsections": [
+        { "id": "900", "title": "General" },
+        { "id": "901", "title": "Planechase" },
+        { "id": "902", "title": "Vanguard" },
+        { "id": "903", "title": "Commander" },
+        { "id": "904", "title": "Archenemy" },
+        { "id": "905", "title": "Conspiracy Draft" }
+      ]
+    }
+  ]
+} 

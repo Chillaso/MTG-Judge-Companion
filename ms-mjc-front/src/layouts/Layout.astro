@@ -1,0 +1,77 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="MTG Judge Companion - Quick access to Magic: The Gathering rules" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <header class="bg-white shadow-sm border-b">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <a href="/" class="text-xl font-bold text-gray-900">MTG Judge Companion</a>
+          </div>
+          
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-4">
+            <a href="/" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Rules</a>
+            <a href="/categories" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Categories</a>
+            <a href="/glossary" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Glossary</a>
+          </div>
+
+          <!-- Mobile menu button -->
+          <div class="md:hidden flex items-center">
+            <button id="mobile-menu-button" class="text-gray-600 hover:text-gray-900 focus:outline-none focus:text-gray-900 p-2">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
+          <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="/" class="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Rules</a>
+            <a href="/categories" class="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Categories</a>
+            <a href="/glossary" class="text-gray-600 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium">Glossary</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <slot />
+    </main>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+          mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+          });
+
+          // Close mobile menu when clicking outside
+          document.addEventListener('click', function(event) {
+            if (!mobileMenuButton.contains(event.target as Node) && !mobileMenu.contains(event.target as Node)) {
+              mobileMenu.classList.add('hidden');
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html> 

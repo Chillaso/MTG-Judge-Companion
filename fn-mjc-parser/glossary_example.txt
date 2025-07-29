@@ -1,0 +1,25 @@
+﻿Abandon
+To turn a face-up ongoing scheme card face down and put it on the bottom of its owner’s scheme deck. See rule 701.33, “Abandon.”
+
+Ability
+1. Text on an object that explains what that object does or can do.
+2. An activated or triggered ability on the stack. This kind of ability is an object.
+See rule 113, “Abilities,” and section 6, “Spells, Abilities, and Effects.”
+
+Ability Word
+An italicized word with no rules meaning that ties together abilities on different cards that have similar functionality. See rule 207.2c.
+
+Absorb
+A keyword ability that prevents damage. See rule 702.64, “Absorb.”
+
+Activate
+To put an activated ability onto the stack and pay its costs, so that it will eventually resolve and have its effect. See rule 602, “Activating Activated Abilities.”
+
+Activated Ability
+A kind of ability. Activated abilities are written as “[Cost]: [Effect.] [Activation instructions (if any).]” See rule 113, “Abilities,” and rule 602, “Activating Activated Abilities.”
+
+Activation Cost
+Everything that appears before the colon in an activated ability’s text. It must be paid to activate the ability. See rule 118, “Costs,” and rule 602, “Activating Activated Abilities.”
+
+Active Player
+The player whose turn it is. See rule 102.1.
