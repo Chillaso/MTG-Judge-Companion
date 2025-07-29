@@ -30,7 +30,7 @@ export default function RulesSearch() {
       
       for (const section of rulesData) {
         for (const rule of section.rules) {
-          if (count >= 10) break;
+          if (count >= 3) break;
           exampleResults.push({
             section: section.section,
             sectionTitle: section.title,
