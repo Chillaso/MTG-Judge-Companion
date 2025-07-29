@@ -29,19 +29,25 @@ export default function RulesSearch() {
       let count = 0;
       
       for (const section of rulesData) {
-        for (const rule of section.rules) {
+        for (const subsection of section.rules) {
+          for (const rule of subsection.rules) {
+            if (count >= 3) break;
+            exampleResults.push({
+              section: section.section,
+              sectionTitle: section.title,
+              subsection: subsection.subsection,
+              subsectionTitle: subsection.title,
+              rule: rule.rule,
+              text: rule.text,
+              examples: rule.examples,
+              subrules: rule.subrules,
+              isPartialMatch: false
+            });
+            count++;
+          }
           if (count >= 3) break;
-          exampleResults.push({
-            section: section.section,
-            sectionTitle: section.title,
-            rule: rule.rule,
-            title: rule.title,
-            subrules: rule.subrules,
-            isPartialMatch: false
-          });
-          count++;
         }
-        if (count >= 10) break;
+        if (count >= 3) break;
       }
       
       setFilteredResults(exampleResults);
@@ -52,30 +58,35 @@ export default function RulesSearch() {
     const results = [];
 
     rulesData.forEach(section => {
-      section.rules.forEach(rule => {
-        // Check if rule number matches
-        const ruleNumberMatch = rule.rule.includes(searchTerm);
-        
-        // Check if rule title matches
-        const titleMatch = rule.title.toLowerCase().includes(searchLower);
-        
-        // Check subrules for matches
-        const matchingSubrules = rule.subrules.filter(subrule => {
-          const subruleNumberMatch = subrule.subrule.includes(searchTerm);
-          const textMatch = subrule.text.toLowerCase().includes(searchLower);
-          return subruleNumberMatch || textMatch;
-        });
-
-        if (ruleNumberMatch || titleMatch || matchingSubrules.length > 0) {
-          results.push({
-            section: section.section,
-            sectionTitle: section.title,
-            rule: rule.rule,
-            title: rule.title,
-            subrules: matchingSubrules.length > 0 ? matchingSubrules : rule.subrules,
-            isPartialMatch: matchingSubrules.length > 0 && matchingSubrules.length < rule.subrules.length
+      section.rules.forEach(subsection => {
+        subsection.rules.forEach(rule => {
+          // Check if rule number matches
+          const ruleNumberMatch = rule.rule.includes(searchTerm);
+          
+          // Check if rule text matches
+          const textMatch = rule.text.toLowerCase().includes(searchLower);
+          
+          // Check subrules for matches
+          const matchingSubrules = rule.subrules.filter(subrule => {
+            const subruleNumberMatch = subrule.subrule.includes(searchTerm);
+            const subruleTextMatch = subrule.text.toLowerCase().includes(searchLower);
+            return subruleNumberMatch || subruleTextMatch;
           });
-        }
+
+          if (ruleNumberMatch || textMatch || matchingSubrules.length > 0) {
+            results.push({
+              section: section.section,
+              sectionTitle: section.title,
+              subsection: subsection.subsection,
+              subsectionTitle: subsection.title,
+              rule: rule.rule,
+              text: rule.text,
+              examples: rule.examples,
+              subrules: matchingSubrules.length > 0 ? matchingSubrules : rule.subrules,
+              isPartialMatch: matchingSubrules.length > 0 && matchingSubrules.length < rule.subrules.length
+            });
+          }
+        });
       });
     });
 
@@ -143,14 +154,31 @@ export default function RulesSearch() {
             <div key={`${result.rule}-${index}`} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md dark:hover:shadow-lg transition-shadow">
               <div className="mb-4">
                 <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-                  Section {result.section}: {result.sectionTitle}
+                  Section {result.section}: {result.sectionTitle} → {result.subsection}: {result.subsectionTitle}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  {result.rule}. {result.title}
+                <h3 className="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2">
+                  {result.rule}
                 </h3>
+                <div className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                  <div 
+                    dangerouslySetInnerHTML={{ 
+                      __html: highlightText(result.text, searchTerm) 
+                    }}
+                  />
+                </div>
+                {result.examples && result.examples.length > 0 && (
+                  <div className="mb-3 text-sm text-gray-600 dark:text-gray-400 italic bg-gray-100 dark:bg-gray-800 p-2 rounded border-l-2 border-gray-300 dark:border-gray-500">
+                    <strong>Example{result.examples.length > 1 ? 's' : ''}:</strong>
+                    <div className="mt-1 space-y-1">
+                      {result.examples.map((example, exIndex) => (
+                        <div key={exIndex}>{example}</div>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 {result.isPartialMatch && (
                   <div className="text-sm text-blue-600 dark:text-blue-400 mt-1">
-                    Showing {result.subrules.length} matching rules
+                    Showing {result.subrules.length} matching subrules
                   </div>
                 )}
               </div>

@@ -15,7 +15,8 @@ const CATEGORIES = [
 export default function CategoriesView() {
   const [rulesData, setRulesData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [categoryRules, setCategoryRules] = useState([]);
+  const [categorySubsections, setCategorySubsections] = useState([]);
+  const [expandedSubsections, setExpandedSubsections] = useState(new Set());
   const [expandedRules, setExpandedRules] = useState(new Set());
   const [loading, setLoading] = useState(true);
 
@@ -41,9 +42,20 @@ export default function CategoriesView() {
     
     if (sectionData) {
       setSelectedCategory(category);
-      setCategoryRules(sectionData.rules);
+      setCategorySubsections(sectionData.rules);
+      setExpandedSubsections(new Set());
       setExpandedRules(new Set());
     }
+  };
+
+  const toggleSubsectionExpansion = (subsectionId) => {
+    const newExpanded = new Set(expandedSubsections);
+    if (newExpanded.has(subsectionId)) {
+      newExpanded.delete(subsectionId);
+    } else {
+      newExpanded.add(subsectionId);
+    }
+    setExpandedSubsections(newExpanded);
   };
 
   const toggleRuleExpansion = (ruleNumber) => {
@@ -58,7 +70,8 @@ export default function CategoriesView() {
 
   const goBackToCategories = () => {
     setSelectedCategory(null);
-    setCategoryRules([]);
+    setCategorySubsections([]);
+    setExpandedSubsections(new Set());
     setExpandedRules(new Set());
   };
 
@@ -88,30 +101,30 @@ export default function CategoriesView() {
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-6">{selectedCategory.description}</p>
           <div className="text-sm text-gray-500 dark:text-gray-500 mb-4">
-            {categoryRules.length} rules in this category
+            {categorySubsections.length} subsections in this category
           </div>
         </div>
 
         <div className="space-y-3">
-          {categoryRules.map((rule) => (
-            <div key={rule.rule} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          {categorySubsections.map((subsection) => (
+            <div key={subsection.subsection} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
               <button
-                onClick={() => toggleRuleExpansion(rule.rule)}
+                onClick={() => toggleSubsectionExpansion(subsection.subsection)}
                 className="w-full px-6 py-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors"
               >
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {rule.rule}. {rule.title}
+                      {subsection.subsection}. {subsection.title}
                     </h3>
                     <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                      {rule.subrules.length} rule{rule.subrules.length !== 1 ? 's' : ''}
+                      {subsection.rules.length} rule{subsection.rules.length !== 1 ? 's' : ''}
                     </div>
                   </div>
                   <div className="ml-4">
                     <svg
                       className={`w-5 h-5 text-gray-400 dark:text-gray-500 transform transition-transform duration-200 ${
-                        expandedRules.has(rule.rule) ? 'rotate-180' : ''
+                        expandedSubsections.has(subsection.subsection) ? 'rotate-180' : ''
                       }`}
                       fill="none"
                       stroke="currentColor"
@@ -123,25 +136,101 @@ export default function CategoriesView() {
                 </div>
               </button>
               
-              {expandedRules.has(rule.rule) && (
+              {expandedSubsections.has(subsection.subsection) && (
                 <div className="px-6 pb-4 border-t border-gray-100 dark:border-gray-700">
                   <div className="space-y-4 mt-4">
-                    {rule.subrules.map((subrule, index) => (
-                      <div key={index} className="border-l-2 border-blue-200 dark:border-blue-600 pl-4">
-                        <div className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">
-                          {subrule.subrule}
-                        </div>
-                        <div className="text-gray-700 dark:text-gray-300 leading-relaxed mb-2">
-                          {subrule.text}
-                        </div>
-                        {subrule.examples && subrule.examples.length > 0 && (
-                          <div className="text-sm text-gray-600 dark:text-gray-400 italic bg-gray-50 dark:bg-gray-700 p-3 rounded border-l-2 border-gray-300 dark:border-gray-600">
-                            <strong>Example{subrule.examples.length > 1 ? 's' : ''}:</strong>
-                            <div className="mt-1 space-y-1">
-                              {subrule.examples.map((example, exIndex) => (
-                                <div key={exIndex}>{example}</div>
-                              ))}
+                    {subsection.rules.map((rule) => (
+                      <div key={rule.rule}>
+                        {rule.subrules.length > 0 ? (
+                          // Expandable card for rules with subrules
+                          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                            <button
+                              onClick={() => toggleRuleExpansion(rule.rule)}
+                              className="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors rounded-lg"
+                            >
+                              <div className="flex items-center justify-between">
+                                <div>
+                                  <h4 className="text-base font-semibold text-blue-600 dark:text-blue-400">
+                                    {rule.rule}
+                                  </h4>
+                                  <div className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
+                                    {rule.text}
+                                  </div>
+                                  <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                    {rule.subrules.length} subrule{rule.subrules.length !== 1 ? 's' : ''}
+                                  </div>
+                                </div>
+                                <div className="ml-4">
+                                  <svg
+                                    className={`w-4 h-4 text-gray-400 dark:text-gray-500 transform transition-transform duration-200 ${
+                                      expandedRules.has(rule.rule) ? 'rotate-180' : ''
+                                    }`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                  </svg>
+                                </div>
+                              </div>
+                            </button>
+                            
+                            {expandedRules.has(rule.rule) && (
+                              <div className="px-4 pb-3 border-t border-gray-200 dark:border-gray-600">
+                                {rule.examples && rule.examples.length > 0 && (
+                                  <div className="mt-3 mb-3 text-sm text-gray-600 dark:text-gray-400 italic bg-gray-100 dark:bg-gray-800 p-2 rounded border-l-2 border-gray-300 dark:border-gray-500">
+                                    <strong>Example{rule.examples.length > 1 ? 's' : ''}:</strong>
+                                    <div className="mt-1 space-y-1">
+                                      {rule.examples.map((example, exIndex) => (
+                                        <div key={exIndex}>{example}</div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                                <div className="space-y-2 mt-3">
+                                  {rule.subrules.map((subrule, subIndex) => (
+                                    <div key={subIndex} className="border-l-2 border-blue-200 dark:border-blue-500 pl-3">
+                                      <div className="text-sm font-medium text-blue-600 dark:text-blue-300 mb-1">
+                                        {subrule.subrule}
+                                      </div>
+                                      <div className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                                        {subrule.text}
+                                      </div>
+                                      {subrule.examples && subrule.examples.length > 0 && (
+                                        <div className="mt-1 text-sm text-gray-500 dark:text-gray-400 italic bg-gray-100 dark:bg-gray-800 p-2 rounded border-l-2 border-gray-300 dark:border-gray-500">
+                                          <strong>Example{subrule.examples.length > 1 ? 's' : ''}:</strong>
+                                          <div className="mt-1 space-y-1">
+                                            {subrule.examples.map((example, exIndex) => (
+                                              <div key={exIndex}>{example}</div>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          // Simple card for rules without subrules
+                          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 p-4">
+                            <h4 className="text-base font-semibold text-blue-600 dark:text-blue-400 mb-2">
+                              {rule.rule}
+                            </h4>
+                            <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-2">
+                              {rule.text}
                             </div>
+                            {rule.examples && rule.examples.length > 0 && (
+                              <div className="text-xs text-gray-600 dark:text-gray-400 italic bg-gray-100 dark:bg-gray-800 p-2 rounded border-l-2 border-gray-300 dark:border-gray-500">
+                                <strong>Example{rule.examples.length > 1 ? 's' : ''}:</strong>
+                                <div className="mt-1 space-y-1">
+                                  {rule.examples.map((example, exIndex) => (
+                                    <div key={exIndex}>{example}</div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
                           </div>
                         )}
                       </div>
