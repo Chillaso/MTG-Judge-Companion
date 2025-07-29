@@ -20,9 +20,10 @@ def parse_mtg_rules(file_path: str) -> dict:
     if rules_start == -1:
         return {"mtgrules": []}
     
-    # Process all lines from rules start to end (we'll stop when we hit actual glossary content)
+    # Process all lines from rules start to end
     sections = []
     current_section = None
+    current_subsection = None
     current_rule = None
     
     # Process lines from rules start to end
@@ -53,18 +54,19 @@ def parse_mtg_rules(file_path: str) -> dict:
                 "rules": []
             }
             sections.append(current_section)
+            current_subsection = None
             current_rule = None
             i += 1
             continue
         
-        # Rule header (3-digit numbers: "100. General", "101. The Magic Golden Rules", etc.)
-        rule_match = re.match(r'^(\d{3})\.\s+(.+)$', line)
-        if rule_match:
-            rule_num = rule_match.group(1)
-            rule_title = rule_match.group(2)
+        # Subsection header (3-digit numbers: "100. General", "101. The Magic Golden Rules", etc.)
+        subsection_match = re.match(r'^(\d{3})\.\s+(.+)$', line)
+        if subsection_match:
+            subsection_num = subsection_match.group(1)
+            subsection_title = subsection_match.group(2)
             
-            # Determine which section this rule belongs to based on rule number
-            section_num = rule_num[0]  # First digit of rule number
+            # Determine which section this subsection belongs to based on subsection number
+            section_num = subsection_num[0]  # First digit of subsection number
             
             # Find or create the appropriate section
             target_section = None
@@ -93,14 +95,29 @@ def parse_mtg_rules(file_path: str) -> dict:
                 }
                 sections.append(target_section)
             
+            current_subsection = {
+                "subsection": subsection_num,
+                "title": subsection_title,
+                "rules": []
+            }
+            target_section["rules"].append(current_subsection)
+            current_section = target_section
+            current_rule = None
+            i += 1
+            continue
+        
+        # Rule (decimal format: "100.1. Text", "100.2. Text", etc.)
+        rule_match = re.match(r'^(\d+\.\d+)\.\s+(.+)$', line)
+        if rule_match and current_subsection:
+            rule_num = rule_match.group(1)
+            rule_text = rule_match.group(2)
             current_rule = {
                 "rule": rule_num,
-                "title": rule_title,
-                "subrules": [],
-                "examples": []
+                "text": rule_text,
+                "examples": [],
+                "subrules": []
             }
-            target_section["rules"].append(current_rule)
-            current_section = target_section
+            current_subsection["rules"].append(current_rule)
             
             # Look for examples immediately following this rule
             i += 1
@@ -114,8 +131,8 @@ def parse_mtg_rules(file_path: str) -> dict:
                     break
             continue
         
-        # Subrule (decimal format: "100.1. Text", "100.1a. Text", etc.)
-        subrule_match = re.match(r'^(\d+\.\d+[a-z]*)\.\s+(.+)$', line)
+        # Subrule (decimal + letter format: "100.1a Text", "100.1b Text", etc.)
+        subrule_match = re.match(r'^(\d+\.\d+[a-z]+)\s+(.+)$', line)
         if subrule_match and current_rule:
             subrule_num = subrule_match.group(1)
             subrule_text = subrule_match.group(2)

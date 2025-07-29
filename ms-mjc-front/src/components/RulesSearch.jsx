@@ -150,7 +150,7 @@ export default function RulesSearch() {
                 </h3>
                 {result.isPartialMatch && (
                   <div className="text-sm text-blue-600 dark:text-blue-400 mt-1">
-                    Showing {result.subrules.length} matching subrules
+                    Showing {result.subrules.length} matching rules
                   </div>
                 )}
               </div>

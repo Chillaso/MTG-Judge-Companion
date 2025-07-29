@@ -105,7 +105,7 @@ export default function CategoriesView() {
                       {rule.rule}. {rule.title}
                     </h3>
                     <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                      {rule.subrules.length} subrule{rule.subrules.length !== 1 ? 's' : ''}
+                      {rule.subrules.length} rule{rule.subrules.length !== 1 ? 's' : ''}
                     </div>
                   </div>
                   <div className="ml-4">
