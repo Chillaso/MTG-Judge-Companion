@@ -90,13 +90,13 @@ export default function RulesSearch() {
     if (!searchTerm.trim()) return text;
     
     const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    return text.replace(regex, '<mark class="bg-yellow-200">$1</mark>');
+    return text.replace(regex, '<mark class="bg-yellow-200 dark:bg-yellow-500 dark:text-gray-900">$1</mark>');
   };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center py-12">
-        <div className="text-lg text-gray-600">Loading rules...</div>
+        <div className="text-lg text-gray-600 dark:text-gray-300">Loading rules...</div>
       </div>
     );
   }
@@ -110,12 +110,12 @@ export default function RulesSearch() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search rules by number (e.g., 603) or keywords (e.g., damage, stack, triggered)..."
-            className="w-full px-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-12"
+            className="w-full px-4 py-3 text-lg border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-12 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors"
           />
           {searchTerm && (
             <button
               onClick={clearSearch}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -125,13 +125,13 @@ export default function RulesSearch() {
         </div>
         
         {searchTerm && (
-          <div className="mt-2 text-sm text-gray-600">
+          <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Found {filteredResults.length} matching rules
           </div>
         )}
         
         {!searchTerm && filteredResults.length > 0 && (
-          <div className="mt-2 text-sm text-gray-600">
+          <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Showing first 10 rules as examples
           </div>
         )}
@@ -140,16 +140,16 @@ export default function RulesSearch() {
       {filteredResults.length > 0 && (
         <div className="space-y-6">
           {filteredResults.map((result, index) => (
-            <div key={`${result.rule}-${index}`} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+            <div key={`${result.rule}-${index}`} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md dark:hover:shadow-lg transition-shadow">
               <div className="mb-4">
-                <div className="text-sm text-gray-500 mb-1">
+                <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
                   Section {result.section}: {result.sectionTitle}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                   {result.rule}. {result.title}
                 </h3>
                 {result.isPartialMatch && (
-                  <div className="text-sm text-blue-600 mt-1">
+                  <div className="text-sm text-blue-600 dark:text-blue-400 mt-1">
                     Showing {result.subrules.length} matching subrules
                   </div>
                 )}
@@ -157,18 +157,18 @@ export default function RulesSearch() {
               
               <div className="space-y-3">
                 {result.subrules.map((subrule, subIndex) => (
-                  <div key={subIndex} className="border-l-2 border-gray-200 pl-4">
-                    <div className="text-sm font-medium text-blue-600 mb-1">
+                  <div key={subIndex} className="border-l-2 border-gray-200 dark:border-gray-600 pl-4">
+                    <div className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">
                       {subrule.subrule}
                     </div>
                     <div 
-                      className="text-gray-700 leading-relaxed"
+                      className="text-gray-700 dark:text-gray-300 leading-relaxed"
                       dangerouslySetInnerHTML={{ 
                         __html: highlightText(subrule.text, searchTerm) 
                       }}
                     />
                     {subrule.examples && subrule.examples.length > 0 && (
-                      <div className="mt-2 text-sm text-gray-600 italic">
+                      <div className="mt-2 text-sm text-gray-600 dark:text-gray-400 italic">
                         Examples: {subrule.examples.join('; ')}
                       </div>
                     )}
@@ -182,7 +182,7 @@ export default function RulesSearch() {
 
       {searchTerm && filteredResults.length === 0 && (
         <div className="text-center py-12">
-          <div className="text-gray-500 text-lg">
+          <div className="text-gray-500 dark:text-gray-400 text-lg">
             No rules found matching "{searchTerm}". Try different keywords or rule numbers.
           </div>
         </div>
@@ -190,10 +190,10 @@ export default function RulesSearch() {
       
       {!searchTerm && filteredResults.length === 0 && (
         <div className="text-center py-12">
-          <div className="text-gray-500 text-lg">
+          <div className="text-gray-500 dark:text-gray-400 text-lg">
             Enter a rule number or keywords to search the MTG rules database
           </div>
-          <div className="text-sm text-gray-400 mt-2">
+          <div className="text-sm text-gray-400 dark:text-gray-500 mt-2">
             Try searching for: "603", "damage", "stack", "triggered", "priority"
           </div>
         </div>
