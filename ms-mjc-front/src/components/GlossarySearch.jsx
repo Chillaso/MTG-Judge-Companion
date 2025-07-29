@@ -10,7 +10,7 @@ export default function GlossarySearch() {
   useEffect(() => {
     const loadGlossary = async () => {
       try {
-        const response = await fetch(`${import.meta.env.BASE_URL}glossary.json`);
+        const response = await fetch(`${import.meta.env.BASE_URL}/glossary.json`);
         const data = await response.json();
         setGlossaryData(data.glossary || []);
         setFilteredResults(data.glossary || []);
