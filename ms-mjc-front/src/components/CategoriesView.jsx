@@ -23,7 +23,7 @@ export default function CategoriesView() {
   useEffect(() => {
     const loadRules = async () => {
       try {
-        const response = await fetch('/rules.json');
+        const response = await fetch(`${import.meta.env.BASE_URL}rules.json`);
         const data = await response.json();
         setRulesData(data.mtgrules || []);
         setLoading(false);

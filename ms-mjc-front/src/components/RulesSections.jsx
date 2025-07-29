@@ -9,7 +9,7 @@ export default function RulesSections() {
   useEffect(() => {
     const loadRulesIndex = async () => {
       try {
-        const response = await fetch('/rules-index.json');
+        const response = await fetch(`${import.meta.env.BASE_URL}rules-index.json`);
         const data = await response.json();
         setSections(data.sections || []);
         setLoading(false);

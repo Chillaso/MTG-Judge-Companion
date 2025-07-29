@@ -4,6 +4,7 @@ export interface Props {
 }
 
 const { title } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <!DOCTYPE html>
@@ -20,14 +21,14 @@ const { title } = Astro.props;
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
           <div class="flex items-center">
-            <a href="/" class="text-xl font-bold text-gray-900 dark:text-white">MTG Judge Companion</a>
+            <a href={baseUrl} class="text-xl font-bold text-gray-900 dark:text-white">MTG Judge Companion</a>
           </div>
           
           <!-- Desktop Navigation -->
           <div class="hidden md:flex items-center space-x-4">
-            <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Rules</a>
-            <a href="/categories" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Categories</a>
-            <a href="/glossary" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Glossary</a>
+            <a href={baseUrl} class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Rules</a>
+            <a href={`${baseUrl}categories`} class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Categories</a>
+            <a href={`${baseUrl}glossary`} class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Glossary</a>
             
             <!-- Theme Toggle Button -->
             <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-md transition-colors">
@@ -65,9 +66,9 @@ const { title } = Astro.props;
         <!-- Mobile Navigation Menu -->
         <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
           <div class="px-2 pt-2 pb-3 space-y-1">
-            <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors">Rules</a>
-            <a href="/categories" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors">Categories</a>
-            <a href="/glossary" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors">Glossary</a>
+            <a href={baseUrl} class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors">Rules</a>
+            <a href={`${baseUrl}categories`} class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors">Categories</a>
+            <a href={`${baseUrl}glossary`} class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors">Glossary</a>
           </div>
         </div>
       </nav>
