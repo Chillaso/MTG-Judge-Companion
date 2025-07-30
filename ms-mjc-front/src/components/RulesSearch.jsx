@@ -9,7 +9,7 @@ export default function RulesSearch() {
   useEffect(() => {
     const loadRules = async () => {
       try {
-        const response = await fetch(`${import.meta.env.BASE_URL}/rules.json`);
+        const response = await fetch(`${import.meta.env.BASE_URL}rules.json`);
         const data = await response.json();
         setRulesData(data.mtgrules || []);
         setLoading(false);
@@ -143,7 +143,7 @@ export default function RulesSearch() {
         
         {!searchTerm && filteredResults.length > 0 && (
           <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Showing first 10 rules as examples
+            Showing first {filteredResults.length} rules as examples
           </div>
         )}
       </div>
