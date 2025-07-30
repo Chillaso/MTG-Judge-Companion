@@ -28,9 +28,30 @@ const mobileIcons = ThemeToggleIcons({ prefix: 'mobile-' });
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="MTG Judge Companion - Quick access to Magic: The Gathering rules" />
+    <meta name="description" content="MTG Rules - Quick access to Magic: The Gathering rules and glossary" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Favicon and Icons -->
     <link rel="icon" type="image/x-icon" href={`${baseUrl}favicon.ico`} />
+    <link rel="icon" type="image/png" sizes="16x16" href={`${baseUrl}mtg-16.png`} />
+    <link rel="icon" type="image/png" sizes="32x32" href={`${baseUrl}mtg-32.png`} />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href={`${baseUrl}manifest.json`} />
+    
+    <!-- Theme Colors - will be updated by JavaScript based on current theme -->
+    <meta name="theme-color" content="#1f2937" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    
+    <!-- Apple PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="MTG Rules" />
+    
+    <!-- Microsoft PWA Meta Tags -->
+    <meta name="msapplication-TileColor" content="#1f2937" />
+    <meta name="msapplication-config" content="none" />
+    
     <title>{title}</title>
   </head>
   <body class="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-200">
@@ -138,6 +159,33 @@ const mobileIcons = ThemeToggleIcons({ prefix: 'mobile-' });
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
+        // Service Worker Registration
+        const baseUrl = import.meta.env.BASE_URL;
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register(`${baseUrl}sw.js`, {
+              scope: `${baseUrl}`
+            }).then(function(registration) {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }).catch(function(error) {
+              console.log('ServiceWorker registration failed: ', error);
+            });
+          });
+        }
+
+        // Update theme color meta tag based on current theme
+        function updateThemeColor(isDark) {
+          const themeColorMeta = document.querySelector('meta[name="theme-color"]:not([media])');
+          if (!themeColorMeta) {
+            const meta = document.createElement('meta');
+            meta.name = 'theme-color';
+            meta.content = isDark ? '#1f2937' : '#ffffff';
+            document.head.appendChild(meta);
+          } else {
+            (themeColorMeta as HTMLMetaElement).content = isDark ? '#1f2937' : '#ffffff';
+          }
+        }
+
         // Theme Toggle Functionality
         const themeToggle = document.getElementById('theme-toggle');
         const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
@@ -152,10 +200,12 @@ const mobileIcons = ThemeToggleIcons({ prefix: 'mobile-' });
           document.documentElement.classList.add('dark');
           sunIcons.forEach(icon => icon.classList.remove('hidden'));
           moonIcons.forEach(icon => icon.classList.add('hidden'));
+          updateThemeColor(true);
         } else {
           document.documentElement.classList.remove('dark');
           sunIcons.forEach(icon => icon.classList.add('hidden'));
           moonIcons.forEach(icon => icon.classList.remove('hidden'));
+          updateThemeColor(false);
         }
         
         function toggleTheme() {
@@ -166,11 +216,13 @@ const mobileIcons = ThemeToggleIcons({ prefix: 'mobile-' });
             localStorage.setItem('theme', 'light');
             sunIcons.forEach(icon => icon.classList.add('hidden'));
             moonIcons.forEach(icon => icon.classList.remove('hidden'));
+            updateThemeColor(false);
           } else {
             document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
             sunIcons.forEach(icon => icon.classList.remove('hidden'));
             moonIcons.forEach(icon => icon.classList.add('hidden'));
+            updateThemeColor(true);
           }
         }
         

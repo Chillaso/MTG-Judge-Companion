@@ -1,0 +1,36 @@
+{
+  "name": "MTG Rules",
+  "short_name": "MTG Rules",
+  "description": "Quick access to Magic: The Gathering rules and glossary",
+  "start_url": "/mtg-rules/",
+  "scope": "/mtg-rules/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#1f2937",
+  "background_color": "#ffffff",
+  "categories": ["games", "reference", "education"],
+  "icons": [
+    {
+      "src": "/mtg-rules/mtg-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/mtg-rules/mtg-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/mtg-rules/mtg-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/mtg-rules/mtg-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
