@@ -30,7 +30,7 @@ const mobileIcons = ThemeToggleIcons({ prefix: 'mobile-' });
     <meta charset="UTF-8" />
     <meta name="description" content="MTG Judge Companion - Quick access to Magic: The Gathering rules" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href={`${baseUrl}favicon.ico`} />
     <title>{title}</title>
   </head>
   <body class="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-200">
@@ -40,7 +40,7 @@ const mobileIcons = ThemeToggleIcons({ prefix: 'mobile-' });
           <div class="flex items-center">
             <a href={baseUrl} class="flex items-center space-x-3">
               <img 
-                src="/mtg-judge.png" 
+                src=`${baseUrl}mtg-judge.png` 
                 alt="MTG Judge Companion Icon" 
                 class="h-auto w-auto max-h-10"
               />
