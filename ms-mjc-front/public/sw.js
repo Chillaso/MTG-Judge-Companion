@@ -1,5 +1,5 @@
 const CACHE_NAME = 'mtg-rules-v1';
-const BASE_URL = import.meta.env.BASE_URL;
+const BASE_URL = '/mtg-rules/';
 
 // Resources to cache on install
 const STATIC_RESOURCES = [

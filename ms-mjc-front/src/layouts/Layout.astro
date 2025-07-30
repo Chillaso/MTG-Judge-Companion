@@ -65,7 +65,7 @@ const mobileIcons = ThemeToggleIcons({ prefix: 'mobile-' });
                 alt="MTG Judge Companion Icon" 
                 class="h-auto w-auto max-h-10"
               />
-              <span class="text-xl font-bold text-gray-900 dark:text-white">Rules companion</span>
+              <span class="text-xl font-bold text-gray-900 dark:text-white">Rules</span>
             </a>
           </div>
           
@@ -95,6 +95,20 @@ const mobileIcons = ThemeToggleIcons({ prefix: 'mobile-' });
 
           <!-- Mobile menu button -->
           <div class="md:hidden flex items-center space-x-2">
+
+            <!-- Mobile Install Button (Mobile Only) -->
+            <a 
+              href=`${baseUrl}how-to-install` 
+              class="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              title="Install App"
+            >
+              <span>Install</span>
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="28 25 26.586 23.586 24 26.172 24 18 22 18 22 26.172 19.414 23.586 18 25 23 30 28 25"/>
+                <path d="M10,28V10H22v5h2V6a2.0023,2.0023,0,0,0-2-2H10A2.002,2.002,0,0,0,8,6V28a2.0023,2.0023,0,0,0,2,2h6V28ZM10,6H22l0,2H10Z"/>
+              </svg>
+            </a>
+            
             <!-- Mobile Theme Toggle -->
             <button id="mobile-theme-toggle" class="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-md transition-colors">
               <svg id={mobileIcons.sunIcon} class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -159,6 +173,33 @@ const mobileIcons = ThemeToggleIcons({ prefix: 'mobile-' });
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
+        // PWA Detection - Hide install button if already in PWA mode
+        function checkPWAMode() {
+          const installButton = document.querySelector('a[href*="how-to-install"]');
+          if (installButton) {
+            // Check if running as PWA (standalone mode)
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                                window.navigator.standalone || 
+                                document.referrer.includes('android-app://');
+            
+            if (isStandalone) {
+              // Hide install button when in PWA mode
+              installButton.style.display = 'none';
+            } else {
+              // Show install button when in browser mode
+              installButton.style.display = 'flex';
+            }
+          }
+        }
+        
+        // Run PWA detection on load
+        checkPWAMode();
+        
+        // Also check when display mode changes (if supported)
+        if (window.matchMedia) {
+          window.matchMedia('(display-mode: standalone)').addEventListener('change', checkPWAMode);
+        }
+
         // Service Worker Registration
         const baseUrl = import.meta.env.BASE_URL;
         if ('serviceWorker' in navigator) {
