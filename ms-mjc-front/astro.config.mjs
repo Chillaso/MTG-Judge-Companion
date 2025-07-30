@@ -8,7 +8,7 @@ export default defineConfig({
   integrations: [react(), tailwind()],
   output: 'static',
   site: isProduction ? 'https://chillaso.github.io' : 'http://localhost:4321',
-  base: isProduction ? '/MTG-Judge-Companion/' : '',
+  base: isProduction ? '/mtg-rules/' : '',
   build: {
     assets: 'assets'
   }
